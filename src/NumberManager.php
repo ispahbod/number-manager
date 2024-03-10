@@ -2,6 +2,8 @@
 
 namespace Ispahbod\NumberManager;
 
+use InvalidArgumentException;
+
 class NumberManager
 {
     public static function convertToEnglishNumerals(string $input): string
@@ -92,7 +94,7 @@ class NumberManager
     public static function divide(int $input, int $divisor): float
     {
         if ($divisor === 0) {
-            throw new \InvalidArgumentException("Divisor cannot be zero.");
+            throw new InvalidArgumentException("Divisor cannot be zero.");
         }
         return $input / $divisor;
     }
@@ -115,7 +117,7 @@ class NumberManager
     public static function factorial(int $input): int
     {
         if ($input < 0) {
-            throw new \InvalidArgumentException("Input must be a non-negative integer.");
+            throw new InvalidArgumentException("Input must be a non-negative integer.");
         }
         $factorial = 1;
         for ($i = 2; $i <= $input; $i++) {
@@ -139,12 +141,6 @@ class NumberManager
         return max($min, min($number, $max));
     }
 
-    public static function currency(int $amount, string $currency = 'USD', string $locale = 'en'): string
-    {
-        $fmt = new \NumberFormatter($locale, \NumberFormatter::CURRENCY);
-        return $fmt->formatCurrency($amount, $currency);
-    }
-
     public static function fileSize(int $size, int $precision = 1): string
     {
         if ($size < 1024) {
@@ -155,45 +151,5 @@ class NumberManager
             return round($size / 1048576, $precision) . ' MB';
         }
         return round($size / 1073741824, $precision) . ' GB';
-    }
-
-    public static function forHumans(int $number, int $precision = 1, string $locale = 'en'): string
-    {
-        // Implementation for English
-        if ($locale === 'en') {
-            if ($number >= 1000 && $number < 1000000) {
-                return round($number / 1000, $precision) . ' thousand';
-            } elseif ($number >= 1000000) {
-                return round($number / 1000000, $precision) . ' million';
-            }
-        }
-        // Add implementation for Persian or other locales as needed
-        return (string)$number;
-    }
-
-    public static function format(int $number, int $precision = 0, string $locale = 'en'): string
-    {
-        $fmt = new \NumberFormatter($locale, \NumberFormatter::DECIMAL);
-        $fmt->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $precision);
-        return $fmt->format($number);
-    }
-
-    public static function ordinal(int $number): string
-    {
-        $formatter = new \NumberFormatter('en', \NumberFormatter::ORDINAL);
-        return $formatter->format($number);
-    }
-
-    public static function percentage(float $number, int $precision = 0, string $locale = 'en'): string
-    {
-        $fmt = new \NumberFormatter($locale, \NumberFormatter::PERCENT);
-        $fmt->setAttribute(\NumberFormatter::MIN_FRACTION_DIGITS, $precision);
-        return $fmt->format($number / 100);
-    }
-
-    public static function spell(int $number, string $locale = 'en'): string
-    {
-        $fmt = new \NumberFormatter($locale, \NumberFormatter::SPELLOUT);
-        return $fmt->format($number);
     }
 }
