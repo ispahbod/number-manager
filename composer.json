@@ -1,0 +1,42 @@
+{
+    "name": "ispahbod/number-manager",
+    "description": "number-manager for Laravel Framework",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "framework",
+        "php"
+    ],
+    "authors": [{
+        "name": "Hamed Hadi",
+        "email": "hamed.hadi1010@gmail.com",
+        "homepage": "https://github.com/ispahbod",
+        "role": "Developer"
+    }],
+    "homepage": "https://github.com/ispahbod/number-manager",
+    "require": {
+        "php": "^8.2",
+        "illuminate/support": ">=6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ispahbod\\NumberManager\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ispahbod\\NumberManager\\Tests\\": "tests"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "minimum-stability": "beta"
+}
