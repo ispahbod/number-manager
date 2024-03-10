@@ -152,4 +152,22 @@ class NumberManager
         }
         return round($size / 1073741824, $precision) . ' GB';
     }
+    public function findFirstNumber(string $input): ?string
+    {
+        preg_match('/\d+/', $input, $matches);
+        return $matches[0] ?? null;
+    }
+
+    public function findAllNumbers(string $input): array
+    {
+        preg_match_all('/\d+/', $input, $matches);
+        return $matches[0];
+    }
+
+    public function findLastNumber(string $input): ?string
+    {
+        preg_match_all('/\d+/', $input, $matches);
+        return empty($matches[0]) ? null : end($matches[0]);
+    }
+
 }
