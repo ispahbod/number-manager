@@ -36,14 +36,22 @@ class NumberManager
         return !self::isOdd($input);
     }
 
-    public static function generateRandomInteger(int $numberOfDigits): int
+    public static function generateRandomInteger(int $minNumberOfDigits, int $maxNumberOfDigits = null): int
     {
-        if ($numberOfDigits <= 0) {
+        if ($minNumberOfDigits <= 0) {
             return 0;
         }
-        $min = pow(10, $numberOfDigits - 1);
-        $max = pow(10, $numberOfDigits) - 1;
-        return mt_rand($min, $max);
+        if ($maxNumberOfDigits === null || $maxNumberOfDigits < $minNumberOfDigits) {
+            $maxNumberOfDigits = $minNumberOfDigits;
+        }
+        $min = pow(10, $minNumberOfDigits - 1);
+        $max = pow(10, $maxNumberOfDigits) - 1;
+
+        $length = mt_rand($minNumberOfDigits, $maxNumberOfDigits);
+        $minAdjusted = pow(10, $length - 1);
+        $maxAdjusted = pow(10, $length) - 1;
+
+        return mt_rand($minAdjusted, $maxAdjusted);
     }
 
     public static function isGreaterThan(int $input, int $number): bool
